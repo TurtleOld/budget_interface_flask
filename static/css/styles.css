@@ -1,0 +1,16 @@
+.cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+.cards p {
+    padding: 10px;
+    width: 450px;
+}
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+}
