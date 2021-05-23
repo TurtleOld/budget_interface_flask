@@ -21,9 +21,9 @@ def get_info():
             "name_seller=%s ORDER BY date_receipt",
             (name_seller,))
         reseller = cursor.fetchall()
-        return render_template("index.html", reseller=reseller)
-    if year is not None:
-        cursor.execute()
+        for item in reseller:
+            total = item[6]
+            return render_template("index.html", reseller=reseller, total=total)
 
 
 if __name__ == '__main__':
