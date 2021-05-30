@@ -12,9 +12,8 @@ port = os.getenv("port")
 
 
 # Подключение к базе данных
-
 try:
-    with psycopg2.connect (
+    with psycopg2.connect(
         dbname=dbname,
         user=user,
         password=password,
