@@ -1,3 +1,17 @@
+select.seller {
+    margin: 1rem;
+    width: 500px;
+}
+
+select.days, select.months, select.years, select.weeks {
+    margin: 1rem;
+    width: 35px;
+}
+
+select.years {
+    width: 55px;
+}
+
 .cards {
     display: flex;
     flex-direction: row;
@@ -7,10 +21,4 @@
 .cards p {
     padding: 10px;
     width: 450px;
-}
-.wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    flex-wrap: wrap;
 }
