@@ -11,9 +11,9 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-5">
-            <form action="/" method="post">
+    <form action="/" method="post">
+        <div class="row">
+            <div class="col-5">
                 <label>
                     Выбери продавца:
                     <select name="seller" class="seller">
@@ -25,11 +25,9 @@
                         {% endfor %}
                     </select>
                 </label>
-                <button type="submit">OK</button>
-            </form>
-        </div>
-        <div class="col-3">
-            <form action="/" method="post">
+            </div>
+            <!-- /.col-5 -->
+            <div class="col-3">
                 <label>
                     День:
                     <select name="days" class="days">
@@ -57,12 +55,9 @@
                         {% endfor %}
                     </select>
                 </label>
-                <button type="submit">OK</button>
-            </form>
-        </div>
-        <!-- /.col-6 -->
-        <div class="col-4">
-            <form action="/" method="post" name="my_form">
+            </div>
+            <!-- /.col-3 -->
+            <div class="col-4">
                 Выборка по неделям:
                 <select name="weeks" class="weeks">
                     <option value=""></option>
@@ -71,10 +66,19 @@
                     {% endfor %}
                 </select>
                 <input type="submit" name="selection_by_week" value="Отправить запрос">
-            </form>
+            </div>
         </div>
+    </form>
+
+
+
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-4">
+        <p class="error_name_seller">{{ error_name }}</p>
     </div>
-    <!-- /.row -->
+    <!-- /.col-12 -->
     <div class="row">
         <div class="col-12">
             {% for item in reseller %}
