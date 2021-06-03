@@ -83,12 +83,15 @@
             {% endfor %}
         </div>
         <!-- /.col-12 -->
-    </div>
-    <!-- /.row -->
-    <div class="row">
         <div class="col-12">
             {% for item_week in week %}
                 <p>Продавец: {{ item_week[0] }},<br> Дата: {{ item_week[1] }},<br> Время: {{ item_week[2] }},<br> Наименование: {{ item_week[3] }},<br> Цена: {{ item_week[4] }},<br> Количество: {{ item_week[5] }},<br> Сумма: {{ item_week[6] }},<br> Итог по чеку: {{ item_week[7] }} </p>
+            {% endfor %}
+        </div>
+        <!-- /.col-12 -->
+        <div class="col-12">
+            {% for item_date in get_receipt_for_date %}
+                <p>Продавец: {{ item_date[0] }},<br> Дата: {{ item_date[1] }},<br> Время: {{ item_date[2] }},<br> Наименование: {{ item_date[3] }},<br> Цена: {{ item_date[4] }},<br> Количество: {{ item_date[5] }},<br> Сумма: {{ item_date[6] }},<br> Итог по чеку: {{ item_date[7] }} </p>
             {% endfor %}
         </div>
         <!-- /.col-12 -->
