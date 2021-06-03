@@ -37,14 +37,15 @@ def get_info():
             (name_seller,))
         reseller = cursor.fetchall()
     elif days and months and years:
-        error = "Заполните требуемые поля"
+        cursor.execute("SELECT date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE date_receipt=%s GROUP BY date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt", (get_date,))
+        get_receipt_for_date = cursor.fetchall()
     elif days == "" and months and years:
         error = "Не заполнено поле День"
     elif days and months == "" and years:
         error = "Не заполнено поле Месяц"
     elif days and months and years == "":
         error = "Не заполнено поле Год"
-    return render_template("index.html", reseller=reseller, week=weeks, error=error)
+    return render_template("index.html", reseller=reseller, week=weeks, get_receipt_for_date=get_receipt_for_date, error=error)
 
 
 if __name__ == '__main__':
