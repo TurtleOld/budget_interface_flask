@@ -5,9 +5,9 @@
     <title>Домашняя бухгалтерия</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    {#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
-    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>#}
-    {#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>#}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -16,7 +16,7 @@
             <div class="col-5">
                 <label>
                     Выбери продавца:
-                    <select name="seller" class="seller">
+                    <select name="seller" class="seller form-select">
                         <option value=""></option>
                         {% for name_item in name_seller %}
                             {% for seller in name_item %}
@@ -58,75 +58,114 @@
             </div>
             <!-- /.col-3 -->
             <div class="col-4">
-                Выборка по неделям:
-                <select name="weeks" class="weeks">
-                    <option value=""></option>
-                    {%  for i in range(1,53,1) %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" name="selection_by_week" value="Отправить запрос">
+                <label>
+                    Выборка по неделям:
+                    <select name="weeks" class="weeks">
+                        <option value=""></option>
+                        {%  for i in range(1,53,1) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <button type="submit" name="selection_by_week" class="btn btn-danger">Отправить запрос</button>
+            <p>{{ get_amount }}</p>
             </div>
         </div>
     </form>
 
 
-
-
-
     <p class="error">{{ error }}</p>
     <div class="row">
         <div class="col-12">
-            {% for item in reseller %}
-                <p>Дата: {{ item[0] }},<br> Время: {{ item[1] }},<br> Наименование: {{ item[2] }},<br> Цена: {{ item[3] }},<br> Количество: {{ item[4] }},<br> Сумма: {{ item[5] }}</p>
-                <p>Итог по чеку: {{ item[6] }}</p>
-            {% endfor %}
+            <div class="cards">
+                {% for item in reseller %}
+                    <div class="col-3">
+                        <p>Продавец: {{ item[0] }},<br> Дата: {{ item[1] }},<br> Время: {{ item[2] }},<br> Наименование: {{ item[3] }},<br>
+                            Цена: {{ item[4] }},<br> Количество: {{ item[5] }},<br> Сумма: {{ item[6] }},<br> Итог по
+                            чеку: {{ item[7] }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- /.col-12 -->
+        </div>
+        <div class="col-12">
+            <div class="cards">
+                {% for item_week in week %}
+                    <div class="col-3">
+                        <p>Продавец: {{ item_week[0] }},<br> Дата: {{ item_week[1] }},<br>
+                            Время: {{ item_week[2] }},<br>
+                            Наименование: {{ item_week[3] }},<br> Цена: {{ item_week[4] }},<br>
+                            Количество: {{ item_week[5] }},<br>
+                            Сумма: {{ item_week[6] }},<br> Итог по чеку: {{ item_week[7] }} </p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <!-- /.col-12 -->
         <div class="col-12">
-            {% for item_week in week %}
-                <p>Продавец: {{ item_week[0] }},<br> Дата: {{ item_week[1] }},<br> Время: {{ item_week[2] }},<br> Наименование: {{ item_week[3] }},<br> Цена: {{ item_week[4] }},<br> Количество: {{ item_week[5] }},<br> Сумма: {{ item_week[6] }},<br> Итог по чеку: {{ item_week[7] }} </p>
-            {% endfor %}
+            <div class="cards">
+                {% for item_date in get_receipt_for_date %}
+                    <div class="col-3">
+                        <p>Продавец: {{ item_date[0] }},<br> Дата: {{ item_date[1] }},<br> Время: {{ item_date[2] }},<br>
+                            Наименование: {{ item_date[3] }},<br> Цена: {{ item_date[4] }},<br> Количество: {{ item_date[5] }},<br>
+                            Сумма: {{ item_date[6] }},<br> Итог по чеку: {{ item_date[7] }} </p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <!-- /.col-12 -->
         <div class="col-12">
-            {% for item_date in get_receipt_for_date %}
-                <p>Продавец: {{ item_date[0] }},<br> Дата: {{ item_date[1] }},<br> Время: {{ item_date[2] }},<br> Наименование: {{ item_date[3] }},<br> Цена: {{ item_date[4] }},<br> Количество: {{ item_date[5] }},<br> Сумма: {{ item_date[6] }},<br> Итог по чеку: {{ item_date[7] }} </p>
-            {% endfor %}
+            <div class="cards">
+                {% for item_date in set_years %}
+                    <div class="col-3">
+                        <p>Продавец: {{ item_date[0] }},<br> Дата: {{ item_date[1] }},<br> Время: {{ item_date[2] }},<br>
+                            Наименование: {{ item_date[3] }},<br> Цена: {{ item_date[4] }},<br> Количество: {{ item_date[5] }},<br>
+                            Сумма: {{ item_date[6] }},<br> Итог по чеку: {{ item_date[7] }} </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- /.col-12 -->
+        <div class="col-12">
+            <div class="cards">
+                {% for item_date in set_months %}
+                    <div class="col-3">
+                        <p>Продавец: {{ item_date[0] }},<br> Дата: {{ item_date[1] }},<br> Время: {{ item_date[2] }},<br>
+                            Наименование: {{ item_date[3] }},<br> Цена: {{ item_date[4] }},<br> Количество: {{ item_date[5] }},<br>
+                            Сумма: {{ item_date[6] }},<br> Итог по чеку: {{ item_date[7] }} </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- /.col-12 -->
+        <div class="col-12">
+            <div class="cards">
+                {% for item_date in get_current_month_day %}
+                    <div class="col-3">
+                        <p>Продавец: {{ item_date[0] }},<br> Дата: {{ item_date[1] }},<br> Время: {{ item_date[2] }},<br>
+                            Наименование: {{ item_date[3] }},<br> Цена: {{ item_date[4] }},<br> Количество: {{ item_date[5] }},<br>
+                            Сумма: {{ item_date[6] }},<br> Итог по чеку: {{ item_date[7] }} </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- /.col-12 -->
+        <div class="col-12">
+            <div class="cards">
+                {% for item_date in get_info_for_current_month %}
+                    <div class="col-3">
+                        <p>Продавец: {{ item_date[0] }},<br> Дата: {{ item_date[1] }},<br> Время: {{ item_date[2] }},<br>
+                            Наименование: {{ item_date[3] }},<br> Цена: {{ item_date[4] }},<br> Количество: {{ item_date[5] }},<br>
+                            Сумма: {{ item_date[6] }},<br> Итог по чеку: {{ item_date[7] }} </p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <!-- /.col-12 -->
     </div>
     <!-- /.row -->
 </div>
 <!-- /.container -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{#<script>#}
-{#    function hello_world() {#}
-{#        $.ajax({#}
-{#            type: "POST",#}
-{#            url: "/",#}
-{#            data: $('form').serialize(),#}
-{#            type: 'POST'#}
-{#        });#}
-{#    }#}
-{#</script>#}
 
 </body>
 </html>
