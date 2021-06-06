@@ -1,6 +1,46 @@
+:root {
+    color-scheme: dark;
+}
+
+html, body {
+    background-color: rgb(139, 0, 139);
+}
+
+p, label {
+    color: rgb(255, 255, 255);
+}
+
+option {
+    color: rgb(0, 250, 154);
+    background-color: rgb(128, 128, 128);
+}
+
+.cards {
+    display: flex;
+    flex-direction:  row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+.cards p {
+    padding: 1rem;
+    border: 2px solid #63ff7d;
+    width: 455px;
+    height: 285px;
+    border-radius: 10px;
+}
+
+.container-fluid {
+    background-color: rgb(139, 0, 139);
+}
+
+
+
 select.seller {
     margin: 1rem;
     width: 500px;
+
 }
 
 select.days, select.months, select.years, select.weeks {
@@ -12,13 +52,9 @@ select.years {
     width: 55px;
 }
 
-.cards {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    flex-wrap: wrap;
-}
-.cards p {
-    padding: 10px;
-    width: 450px;
+.rub {
+	line-height: 7px;
+	width: 0.4em;
+	border-bottom: 1px solid #fff;
+	display: inline-block;
 }
