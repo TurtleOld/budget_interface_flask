@@ -18,25 +18,19 @@ def get_info():
             return f"Сумма по выборке: {round(item[0], 2)} ₽"
 
     days = request.form.get("days")
-    print(days)
     months = request.form.get("months")
-    print(months)
     years = request.form.get("years")
-    print(years)
     get_receipt_for_date = ""
     get_date = f"{years}-{months}-{days}"
-    print(get_date)
     number_week = request.form.get("weeks")
     weeks = ""
     set_years = ""
     set_months = ""
     error = ""
     name_seller = request.form.get("seller")
-    print(name_seller)
     reseller = ""
     get_current_month_day = ""
     get_info_for_current_month = ""
-    sum_price = ""
     get_amount = ""
 
     if name_seller != "" and days != "" and number_week == "" and months == "" and years == "":
