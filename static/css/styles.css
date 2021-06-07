@@ -2,8 +2,16 @@
     color-scheme: dark;
 }
 
+/*Главная страница сайта*/
+.default {
+    text-align:center;
+    color: white;
+    font-size: 25px;
+}
+
 html, body {
     background-color: rgb(139, 0, 139);
+    box-sizing: border-box;
 }
 
 p, label {
