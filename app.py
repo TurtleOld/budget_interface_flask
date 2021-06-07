@@ -5,17 +5,26 @@ app = Flask(__name__)
 
 
 @app.route("/")
+def default_page():
+    return render_template("default.html")
+
+
+@app.route("/accounting")
 def get_name_seller():
     cursor.execute("SELECT name_seller FROM receipt GROUP BY name_seller")
     name_sellers = cursor.fetchall()
     return render_template("index.html", name_seller=name_sellers)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/accounting", methods=["GET", "POST"])
 def get_info():
     def get_amount_product(fetchall_item):
+        list_amount = []
+        summing = ""
         for item in fetchall_item:
-            return f"Сумма по выборке: {round(item[0], 2)} ₽"
+            list_amount.append(item[1])
+            summing = sum(list_amount)
+        return f"Сумма по выборке: {summing} ₽"
 
     days = request.form.get("days")
     months = request.form.get("months")
@@ -38,8 +47,23 @@ def get_info():
             "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
             (days, name_seller,))
         get_current_month_day = cursor.fetchall()
+        cursor.execute(
+            "SELECT sum(amount) FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s",
+            (days, name_seller,))
+        sum_price = cursor.fetchall()
+        get_amount = get_amount_product(sum_price)
 
-    if name_seller != "" and days == "" and number_week == "" and months != "" and years == "":
+    elif name_seller != "" and days == "" and number_week == "" and months == "" and years == "":
+        cursor.execute(
+            "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE name_seller=%s GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
+            (name_seller,))
+        reseller = cursor.fetchall()
+        cursor.execute(
+            "SELECT name_product, amount FROM receipt WHERE name_seller=%s GROUP BY name_product, amount", (name_seller,))
+        sum_price = cursor.fetchall()
+        get_amount = get_amount_product(sum_price)
+
+    elif name_seller != "" and days == "" and number_week == "" and months != "" and years == "":
         cursor.execute(
             "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
             (months, name_seller,))
@@ -50,35 +74,49 @@ def get_info():
         sum_price = cursor.fetchall()
         get_amount = get_amount_product(sum_price)
 
-    elif name_seller != "":
-        cursor.execute(
-            "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE name_seller=%s GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
-            (name_seller,))
-        reseller = cursor.fetchall()
-
-    elif name_seller == "" and number_week != "":
+    elif name_seller == "" and number_week != "" and days == "" and months == "" and years == "":
         cursor.execute(
             "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE (extract (week from date_receipt)=%s) GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
             (number_week,))
         weeks = cursor.fetchall()
+        cursor.execute(
+            "SELECT sum(amount) FROM receipt WHERE (extract (week from date_receipt)=%s)",
+            (number_week,))
+        sum_price = cursor.fetchall()
+        get_amount = get_amount_product(sum_price)
 
     elif days and months and years:
         cursor.execute(
             "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE date_receipt=%s GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
             (get_date,))
         get_receipt_for_date = cursor.fetchall()
+        cursor.execute(
+            "SELECT sum(amount) FROM receipt WHERE date_receipt=%s",
+            (get_date,))
+        sum_price = cursor.fetchall()
+        get_amount = get_amount_product(sum_price)
 
     elif years == "" and name_seller == "" and number_week == "" and days == "" and months != "":
         cursor.execute(
             "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
             (months,))
         set_months = cursor.fetchall()
+        cursor.execute(
+            "SELECT sum(amount) FROM receipt WHERE (extract (month from date_receipt)=%s)",
+            (months,))
+        sum_price = cursor.fetchall()
+        get_amount = get_amount_product(sum_price)
 
     elif years != "" and name_seller == "" and number_week == "" and days == "" and months == "":
         cursor.execute(
             "SELECT name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum FROM receipt WHERE (extract (year from date_receipt)=%s) GROUP BY name_seller, date_receipt, time_receipt, name_product, price, quantity, amount, total_sum ORDER BY date_receipt",
             (years,))
         set_years = cursor.fetchall()
+        cursor.execute(
+            "SELECT sum(amount) FROM receipt WHERE (extract (year from date_receipt)=%s)",
+            (years,))
+        sum_price = cursor.fetchall()
+        get_amount = get_amount_product(sum_price)
 
     elif days == "" and months and years:
         error = "Не заполнено поле День"
