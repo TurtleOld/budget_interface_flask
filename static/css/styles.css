@@ -35,7 +35,7 @@ option {
     padding: 1rem;
     border: 2px solid #63ff7d;
     width: 455px;
-    height: 285px;
+    height: 275px;
     border-radius: 10px;
 }
 
@@ -43,6 +43,9 @@ option {
     background-color: rgb(139, 0, 139);
 }
 
+.underline {
+    border-bottom: 1px solid white;
+}
 
 
 select.seller {
