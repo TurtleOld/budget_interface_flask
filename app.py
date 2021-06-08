@@ -20,11 +20,11 @@ def get_name_seller():
 def get_info():
     def get_amount_product(fetchall_item):
         list_amount = []
-        summing = ""
+        summation = float
         for item in fetchall_item:
             list_amount.append(item[1])
-            summing = sum(list_amount)
-        return f"Сумма по выборке: {summing} ₽"
+            summation = sum(list_amount)
+        return f"Сумма по выборке: {round(summation, 2)} ₽"
 
     days = request.form.get("days")
     months = request.form.get("months")
@@ -50,8 +50,8 @@ def get_info():
         cursor.execute(
             "SELECT sum(amount) FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s",
             (days, name_seller,))
-        sum_price = cursor.fetchall()
-        get_amount = get_amount_product(sum_price)
+        summation_amount = cursor.fetchall()
+        get_amount = get_amount_product(summation_amount)
 
     elif name_seller != "" and days == "" and number_week == "" and months == "" and years == "":
         cursor.execute(
@@ -60,8 +60,8 @@ def get_info():
         reseller = cursor.fetchall()
         cursor.execute(
             "SELECT name_product, amount FROM receipt WHERE name_seller=%s GROUP BY name_product, amount", (name_seller,))
-        sum_price = cursor.fetchall()
-        get_amount = get_amount_product(sum_price)
+        summation_amount = cursor.fetchall()
+        get_amount = get_amount_product(summation_amount)
 
     elif name_seller != "" and days == "" and number_week == "" and months != "" and years == "":
         cursor.execute(
@@ -71,8 +71,8 @@ def get_info():
         cursor.execute(
             "SELECT sum(amount) FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s",
             (months, name_seller,))
-        sum_price = cursor.fetchall()
-        get_amount = get_amount_product(sum_price)
+        summation_amount = cursor.fetchall()
+        get_amount = get_amount_product(summation_amount)
 
     elif name_seller == "" and number_week != "" and days == "" and months == "" and years == "":
         cursor.execute(
@@ -82,8 +82,8 @@ def get_info():
         cursor.execute(
             "SELECT sum(amount) FROM receipt WHERE (extract (week from date_receipt)=%s)",
             (number_week,))
-        sum_price = cursor.fetchall()
-        get_amount = get_amount_product(sum_price)
+        summation_amount = cursor.fetchall()
+        get_amount = get_amount_product(summation_amount)
 
     elif days and months and years:
         cursor.execute(
@@ -93,8 +93,8 @@ def get_info():
         cursor.execute(
             "SELECT sum(amount) FROM receipt WHERE date_receipt=%s",
             (get_date,))
-        sum_price = cursor.fetchall()
-        get_amount = get_amount_product(sum_price)
+        summation_amount = cursor.fetchall()
+        get_amount = get_amount_product(summation_amount)
 
     elif years == "" and name_seller == "" and number_week == "" and days == "" and months != "":
         cursor.execute(
@@ -104,8 +104,8 @@ def get_info():
         cursor.execute(
             "SELECT sum(amount) FROM receipt WHERE (extract (month from date_receipt)=%s)",
             (months,))
-        sum_price = cursor.fetchall()
-        get_amount = get_amount_product(sum_price)
+        summation_amount = cursor.fetchall()
+        get_amount = get_amount_product(summation_amount)
 
     elif years != "" and name_seller == "" and number_week == "" and days == "" and months == "":
         cursor.execute(
@@ -115,8 +115,8 @@ def get_info():
         cursor.execute(
             "SELECT sum(amount) FROM receipt WHERE (extract (year from date_receipt)=%s)",
             (years,))
-        sum_price = cursor.fetchall()
-        get_amount = get_amount_product(sum_price)
+        summation_amount = cursor.fetchall()
+        get_amount = get_amount_product(summation_amount)
 
     elif days == "" and months and years:
         error = "Не заполнено поле День"
