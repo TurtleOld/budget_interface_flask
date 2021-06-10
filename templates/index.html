@@ -11,9 +11,9 @@
 </head>
 <body>
 <div class="container-fluid">
-    <form action="/accounting" method="post">
+    <form action="/accounting" method="post" name="form_data">
         <div class="row">
-            <div class="col-5">
+            <div class="col-5 col-sm-5">
                 <label>
                     Выбери продавца:
                     <select name="seller" class="seller form-select">
@@ -27,7 +27,7 @@
                 </label>
             </div>
             <!-- /.col-5 -->
-            <div class="col-3">
+            <div class="col-3 col-sm-3">
                 <label>
                     День:
                     <select name="days" class="days">
@@ -57,7 +57,7 @@
                 </label>
             </div>
             <!-- /.col-3 -->
-            <div class="col-4">
+            <div class="col-4 col-sm-4">
                 <label>
                     Выборка по неделям:
                     <select name="weeks" class="weeks">
@@ -76,7 +76,7 @@
 
     <p class="error">{{ error }}</p>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 col-sm-12">
             <div class="cards">
                 {% for item in data_sampling %}
                     <div class="col-3">
