@@ -49,14 +49,29 @@ option {
 
 
 select.seller {
-    margin: 1rem;
+    margin: 1.5rem 1rem 1rem 0;
     width: 500px;
+}
 
+.seller_label {
+    padding: 1.5rem 1rem 1rem 3rem;
+}
+
+.days_label, .months_label, .years_label {
+    padding-left: 2rem;
 }
 
 select.days, select.months, select.years, select.weeks {
-    margin: 1rem;
+    margin: 3rem 1rem 1rem 0;
     width: 35px;
+}
+
+.weeks_label {
+    margin-left: -2rem;
+}
+
+.months_label, .years_label {
+    margin-left: -1rem;
 }
 
 select.years {
@@ -68,4 +83,8 @@ select.years {
 	width: 0.4em;
 	border-bottom: 1px solid #fff;
 	display: inline-block;
+}
+
+button[type="submit"] {
+    margin: 2.6rem 1rem 1rem 0;
 }
