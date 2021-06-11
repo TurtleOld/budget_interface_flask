@@ -29,6 +29,7 @@ option {
     justify-content: center;
     flex-wrap: wrap;
     margin-left: 10px;
+
 }
 
 .cards p {
@@ -37,6 +38,7 @@ option {
     width: 455px;
     height: 275px;
     border-radius: 10px;
+    box-shadow: 0px 0px 5px 5px rgba(190, 232, 138, 0.6);
 }
 
 .container-fluid {
@@ -59,6 +61,12 @@ select.seller {
 
 .days_label, .months_label, .years_label {
     padding-left: 2rem;
+}
+
+select.days, select.months, select.years, select.weeks, select.seller {
+    background: rgb(63,251,239);
+    background: linear-gradient(90deg, rgba(63,251,239,1) 0%, rgba(195,70,252,1) 100%);
+    border: 0;
 }
 
 select.days, select.months, select.years, select.weeks {
@@ -86,5 +94,5 @@ select.years {
 }
 
 button[type="submit"] {
-    margin: 2.6rem 1rem 1rem 0;
+    margin: 2.5rem 1rem 1rem 0;
 }
