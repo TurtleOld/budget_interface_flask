@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from settings_database import cursor
 from charts import charts_route
 import logging
