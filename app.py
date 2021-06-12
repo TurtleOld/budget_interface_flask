@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 from settings_database import cursor
+from charts import charts_route
 import logging
 
+
 app = Flask(__name__)
+app.register_blueprint(charts_route)
 
 logging.basicConfig(filename="app.log", filemode="w", level=logging.DEBUG)
 
