@@ -68,7 +68,7 @@
                         {% endfor %}
                     </select>
                 </label>
-            <p class="get_amount">{{ get_amount }}</p>
+                <p class="get_amount">{{ get_amount }}</p>
 
             </div>
             <div class="col-1 col-sm-1">
@@ -83,13 +83,23 @@
     <div class="row">
         <div class="col-12 col-sm-12">
             <div class="cards">
-                {% for item in data_sampling %}
-                    <div class="col-3">
-                        <p>Продавец: <span class="underline">{{ item[2] }}</span>,<br> Дата: <span class="underline">{{ item[0] }}</span>,<br> Время: <span class="underline">{{ item[1] }}</span>,<br> Наименование: <span class="underline">{{ item[3] }}</span>,<br>
-                            Цена: <span class="underline">{{ item[4] }}</span>,<br> Количество: <span class="underline">{{ item[5] }}</span>,<br> Сумма: <span class="underline">{{ item[6] }}</span>
-                            </p>
-                    </div>
-                {% endfor %}
+                <div class="col-3">
+                    <p>
+                        {% block content %}
+                            Продавец: {{ name_seller_receipt }} <br>
+                            Дата: {{ date_receipt }} <br>
+                            Время: {{ time_receipt }} <br><br>
+                            {% for item in data_sampling %}
+                                Наименование: <span class="underline">{{ item[3][0] }}</span><br>
+                                Цена: <span class="underline">{{ item[3][1] }}</span><br>
+                                Количество\Вес: <span class="underline">{{ item[3][2] }}</span><br>
+                                Сумма: <span class="underline">{{ item[3][3] }}</span><br><br>
+
+                            {% endfor %}
+                            Итог чека: {{ result_receipt }}
+                        {% endblock %}
+                    </p>
+                </div>
             </div>
             <!-- /.col-12 -->
         </div>
