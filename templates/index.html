@@ -83,7 +83,7 @@
     <div class="row">
         <div class="col-12 col-sm-12">
             <div class="cards">
-                <div class="col-3">
+
                     {% block content %}
                         {% for item in data_sampling %}
                             <p>
@@ -91,21 +91,21 @@
                                 Дата покупки: {{ item[0] }} <br>
                                 Время покупки: {{ item[1] }} <br><br>
 
-                                    {% for item in item[3][0] %}
-                                        Наименование: {{ item[0] }}<br>
-                                        Цена: {{ item[1] }}<br>
-                                        Количество\Вес: {{ item[2] }}<br>
-                                        Сумма: {{ item[3] }}<br><br>
-                                    {% endfor %}
+                                {% for item in item[3][0] %}
+                                    Наименование: {{ item[0] }}<br>
+                                    Цена: {{ item[1] }}<br>
+                                    Количество\Вес: {{ item[2] }}<br>
+                                    Сумма: {{ item[3] }}<br><br>
+                                {% endfor %}
 
                                 Итог по чеку: {{ item[4] }}
                             </p>
                         {% endfor %}
                     {% endblock %}
-                </div>
+
             </div>
-            <!-- /.col-12 -->
         </div>
+        <!-- /.col-12 -->
     </div>
     <!-- /.row -->
 </div>
