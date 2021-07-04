@@ -69,11 +69,14 @@
                     </select>
                 </label>
                 <p class="get_amount">{{ get_amount }}</p>
+                <!-- Кнопка-триггер модального окна -->
+                <a href="#openModal" class="linkopenmodal">Добавить чек вручную</a>
 
             </div>
             <div class="col-1 col-sm-1">
                 <button type="submit" name="selection_by_week" class="btn btn-danger">Отправить запрос</button>
-                <a href="charts">Графики</a>
+                <a href="charts">Графики</a><br>
+
             </div>
         </div>
     </form>
@@ -83,31 +86,83 @@
     <div class="row">
         <div class="col-12 col-sm-12">
             <div class="cards">
+                {% block content %}
+                    {% for item in data_sampling %}
+                        <p>
+                            Продавец: {{ item[2] }} <br>
+                            Дата покупки: {{ item[0] }} <br>
+                            Время покупки: {{ item[1] }} <br><br>
 
-                    {% block content %}
-                        {% for item in data_sampling %}
-                            <p>
-                                Продавец: {{ item[2] }} <br>
-                                Дата покупки: {{ item[0] }} <br>
-                                Время покупки: {{ item[1] }} <br><br>
+                            {% for item in item[3][0] %}
+                                Наименование: {{ item[0] }}<br>
+                                Цена: {{ item[1] }}<br>
+                                Количество\Вес: {{ item[2] }}<br>
+                                Сумма: {{ item[3] }}<br><br>
+                            {% endfor %}
 
-                                {% for item in item[3][0] %}
-                                    Наименование: {{ item[0] }}<br>
-                                    Цена: {{ item[1] }}<br>
-                                    Количество\Вес: {{ item[2] }}<br>
-                                    Сумма: {{ item[3] }}<br><br>
-                                {% endfor %}
-
-                                Итог по чеку: {{ item[4] }}
-                            </p>
-                        {% endfor %}
-                    {% endblock %}
-
+                            Итог по чеку: {{ item[4] }}
+                        </p>
+                    {% endfor %}
+                {% endblock %}
             </div>
         </div>
         <!-- /.col-12 -->
     </div>
     <!-- /.row -->
+    <!-- Модальное окно -->
+    <form action="#modalWindows">
+        <div id="openModal" class="modalWindow">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Добавить чек вручную</h3>
+                        <a href="#close" title="Close" class="close">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="information_product">
+                            <label class="label_modal">
+                                Продавец:<br>
+                                <input type="text" name="name_seller" class="name_seller">
+                            </label>
+                            <label class="label_modal">
+                                Дата покупки:<br>
+                                <input type="text" name="date_receipt" class="date_receipt">
+                            </label>
+                            <label class="label_modal">
+                                Время покупки:<br>
+                                <input type="text" name="time_receipt" class="time_receipt">
+                            </label>
+                            <label class="label_modal">
+                                Итог по чеку:<br>
+                                <input type="text" name="total_sum" class="total_sum">
+                            </label>
+                            <fieldset>
+                                <legend>Информация о продуктах:</legend>
+                                <label class="label_modal">
+                                    Наименование:<br>
+                                    <input type="text" name="name_product" class="name_product">
+                                </label>
+                                <label class="label_modal">
+                                    Цена:<br>
+                                    <input type="text" name="price_product" class="date_receipt">
+                                </label>
+                                <label class="label_modal">
+                                    Количество\Вес:<br>
+                                    <input type="text" name="quantity" class="quantity">
+                                </label>
+                                <label class="label_modal">
+                                    Сумма:<br>
+                                    <input type="text" name="amount_product" class="amount_product">
+                                </label>
+                            </fieldset>
+                        </div>
+                        {#information_product#}
+                    </div>
+                    <button class="button_modal" type="submit">Добавить данные</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <!-- /.container -->
 
