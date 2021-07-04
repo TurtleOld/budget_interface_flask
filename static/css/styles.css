@@ -32,7 +32,7 @@ option {
 }
 
 .cards p {
-    overflow: scroll;
+    overflow-y: scroll;
     margin-left: 2px;
     padding: 1rem;
     border: 2px solid #63ff7d;
