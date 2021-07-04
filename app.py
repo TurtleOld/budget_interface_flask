@@ -48,144 +48,134 @@ def get_info():
         get_amount = ""
         error = ""
 
-        # # Выборка по продавцу и дню
-        # if name_seller != "" and days != "" and number_week == "" and months == "" and years == "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
-        #         (days, name_seller,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s GROUP BY product_information[1], product_information[4]",
-        #         (days, name_seller,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по продавцу за весь период
-        # elif name_seller != "" and days == "" and number_week == "" and months == "" and years == "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE name_seller=%s ORDER BY date_receipt",
-        #         (name_seller,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE name_seller=%s GROUP BY product_information[1], product_information[4]",
-        #         (name_seller,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по продавцу и году
-        # elif name_seller != "" and days == "" and number_week == "" and months == "" and years != "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE (extract (year from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
-        #         (years, name_seller,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE (extract (year from date_receipt)=%s) and name_seller=%s GROUP BY product_information[1], product_information[4]",
-        #         (years, name_seller,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по продавцу и месяцу
-        # elif name_seller != "" and days == "" and number_week == "" and months != "" and years == "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
-        #         (months, name_seller,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s GROUP BY product_information[1], product_information[4]",
-        #         (months, name_seller,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по продавцу и неделе
-        # elif name_seller != "" and number_week != "" and days == "" and months == "" and years == "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE (extract (week from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
-        #         (number_week, name_seller,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE (extract (week from date_receipt)=%s) and name_seller=%s GROUP BY product_information[1], product_information[4]",
-        #         (number_week, name_seller,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по неделе
-        # elif name_seller == "" and number_week != "" and days == "" and months == "" and years == "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE (extract (week from date_receipt)=%s) ORDER BY date_receipt",
-        #         (number_week,))
-        #     data_sampling = cursor.fetchall()
-        #
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE (extract (week from date_receipt)=%s) GROUP BY product_information[1], product_information[4]",
-        #         (number_week,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по дате
-        # elif days and months and years:
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE date_receipt=%s ORDER BY date_receipt",
-        #         (get_date,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE date_receipt=%s GROUP BY product_information[1], product_information[4]",
-        #         (get_date,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по дню текущего месяца
-        # elif name_seller == "" and days != "" and number_week == "" and months == "" and years == "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE (extract (day from date_receipt)=%s) ORDER BY date_receipt",
-        #         (days,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE (extract (day from date_receipt)=%s) GROUP BY product_information[1], product_information[4]",
-        #         (days,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
+        # Выборка по продавцу и дню
+        if name_seller != "" and days != "" and number_week == "" and months == "" and years == "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                (days, name_seller,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s GROUP BY total_sum",
+                (days, name_seller,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по продавцу за весь период
+        if name_seller != "" and days == "" and number_week == "" and months == "" and years == "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE name_seller=%s ORDER BY date_receipt",
+                (name_seller,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE name_seller=%s GROUP BY total_sum",
+                (name_seller,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по продавцу и году
+        elif name_seller != "" and days == "" and number_week == "" and months == "" and years != "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE (extract (year from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                (years, name_seller,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (year from date_receipt)=%s) and name_seller=%s GROUP BY total_sum",
+                (years, name_seller,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по продавцу и месяцу
+        elif name_seller != "" and days == "" and number_week == "" and months != "" and years == "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                (months, name_seller,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s GROUP BY total_sum",
+                (months, name_seller,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по продавцу и неделе
+        elif name_seller != "" and number_week != "" and days == "" and months == "" and years == "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE (extract (week from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                (number_week, name_seller,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (week from date_receipt)=%s) and name_seller=%s GROUP BY total_sum",
+                (number_week, name_seller,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по неделе
+        elif name_seller == "" and number_week != "" and days == "" and months == "" and years == "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE (extract (week from date_receipt)=%s) ORDER BY date_receipt",
+                (number_week,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (week from date_receipt)=%s) GROUP BY total_sum",
+                (number_week,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по дате
+        elif days and months and years:
+            cursor.execute(
+                "SELECT * FROM receipt WHERE date_receipt=%s ORDER BY date_receipt",
+                (get_date,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE date_receipt=%s GROUP BY total_sum",
+                (get_date,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по дню текущего месяца
+        elif name_seller == "" and days != "" and number_week == "" and months == "" and years == "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE (extract (day from date_receipt)=%s) ORDER BY date_receipt",
+                (days,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (day from date_receipt)=%s) GROUP BY total_sum",
+                (days,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
         # Выборка по месяцу
-        if years == "" and name_seller == "" and number_week == "" and days == "" and months != "":
+        elif years == "" and name_seller == "" and number_week == "" and days == "" and months != "":
             cursor.execute(
                 "SELECT * FROM receipt WHERE (extract (month from date_receipt)=%s) ORDER BY date_receipt",
                 (months,))
             data_sampling = cursor.fetchall()
-            # cursor.execute(
-            #     "SELECT product_information[1][1][4] FROM receipt WHERE (extract (month from date_receipt)=%s) GROUP BY product_information[1][1][4]",
-            #     (months,))
-            # summation_amount = cursor.fetchall()
-            # get_amount = get_full_amount_product(summation_amount)
-        #
-        # # Выборка по году
-        # elif years != "" and name_seller == "" and number_week == "" and days == "" and months == "":
-        #     cursor.execute(
-        #         "SELECT * FROM receipt WHERE (extract (year from date_receipt)=%s) ORDER BY date_receipt",
-        #         (years,))
-        #     data_sampling = cursor.fetchall()
-        #     InfoArticleReceipt.information_article_receipt = info_article_receipt(data_sampling)
-        #     cursor.execute(
-        #         "SELECT product_information[1], product_information[4] FROM receipt WHERE (extract (year from date_receipt)=%s) GROUP BY product_information[1], product_information[4]",
-        #         (years,))
-        #     summation_amount = cursor.fetchall()
-        #     get_amount = get_full_amount_product(summation_amount)
-        #
-        # elif days == "" and months and years:
-        #     error = "Не заполнено поле День"
-        # elif days and months == "" and years:
-        #     error = "Не заполнено поле Месяц"
-        # elif days and months and years == "":
-        #     error = "Не заполнено поле Год"
-        # else:
-        #     error = "Заполните необходимые поля!"
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) GROUP BY total_sum",
+                (months,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        # Выборка по году
+        elif years != "" and name_seller == "" and number_week == "" and days == "" and months == "":
+            cursor.execute(
+                "SELECT * FROM receipt WHERE (extract (year from date_receipt)=%s) ORDER BY date_receipt",
+                (years,))
+            data_sampling = cursor.fetchall()
+            cursor.execute(
+                "SELECT total_sum FROM receipt WHERE (extract (year from date_receipt)=%s) GROUP BY total_sum",
+                (years,))
+            summation_amount = cursor.fetchall()
+            get_amount = get_full_amount_product(summation_amount)
+
+        elif days == "" and months and years:
+            error = "Не заполнено поле День"
+        elif days and months == "" and years:
+            error = "Не заполнено поле Месяц"
+        elif days and months and years == "":
+            error = "Не заполнено поле Год"
+        else:
+            error = "Заполните необходимые поля!"
         cursor.execute("SELECT name_seller FROM receipt GROUP BY name_seller ORDER BY name_seller")
         name_sellers = cursor.fetchall()
         return render_template("index.html", data_sampling=data_sampling,
