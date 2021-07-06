@@ -182,5 +182,10 @@ def get_info():
                                error=error, get_amount=get_amount, name_seller=name_sellers)
 
 
+@app.route("/adding_receipt_manual")
+def adding_receipt_manual():
+    return render_template("adding_manual.html")
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
