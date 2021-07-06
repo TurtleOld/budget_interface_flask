@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление чеков вручную</title>
+    <link rel="shortcut icon" href="{{ url_for("static", filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="{{ url_for("static", filename="js/index.js") }}"></script>
+    <link rel="stylesheet" href="{{ url_for("static", filename='css/adding_receipt.css') }}">
+</head>
+<body>
+    <form action="/accounting">
+        <div class="information_product">
+            <label class="info">
+                Продавец:<br>
+                <input type="text" name="name_seller" class="name_seller">
+            </label>
+            <label class="info">
+                Дата покупки:<br>
+                <input type="text" name="date_receipt" class="date_receipt">
+            </label>
+            <label class="info">
+                Время покупки:<br>
+                <input type="text" name="time_receipt" class="time_receipt">
+            </label>
+            <label class="info">
+                Итог по чеку:<br>
+                <input type="text" name="total_sum" class="total_sum">
+            </label>
+            <fieldset>
+                <legend class="title_information_product">Информация о продуктах:</legend>
+                <div class="field">
+                    <label class="info">
+                    Наименование:<br>
+                    <input type="text" name="name_product" class="name_product">
+                </label>
+                    <label class="info">
+                        Цена:<br>
+                        <input type="text" name="price_product" class="date_receipt">
+                    </label>
+                    <label class="info">
+                        Количество\Вес:<br>
+                        <input type="text" name="quantity" class="quantity">
+                    </label>
+                    <label class="info">
+                        Сумма:<br>
+                        <input type="text" name="amount_product" class="amount_product">
+                    </label>
+                    <input class="remove_block" type="button" value="Удалить" onclick="removeField(this)"><br>
+                </div>
+                <input class="adding_block" type="button" value="Добавить" onclick="addField(this)">
+            </fieldset>
+
+            <button class="button_send" type="submit">Добавить данные</button>
+        </div>
+    </form>
+</body>
+</html>
