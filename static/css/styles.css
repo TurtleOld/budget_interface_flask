@@ -98,3 +98,7 @@ button[type="submit"] {
     margin: 2.5rem 1rem 1rem 0;
 }
 
+.link_open {
+    cursor: pointer;
+    color: white !important;
+}
