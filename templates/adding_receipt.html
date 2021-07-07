@@ -9,49 +9,49 @@
     <link rel="stylesheet" href="{{ url_for("static", filename='css/adding_receipt.css') }}">
 </head>
 <body>
-    <form action="/accounting">
+    <form action="/accounting" class="form_adding_receipt">
         <div class="information_product">
             <label class="info">
                 Продавец:<br>
-                <input type="text" name="name_seller" class="name_seller">
+                <input type="text" autofocus tabindex="1" name="name_seller" class="name_seller">
             </label>
             <label class="info">
                 Дата покупки:<br>
-                <input type="text" name="date_receipt" class="date_receipt">
+                <input type="text" tabindex="2" name="date_receipt" class="date_receipt">
             </label>
             <label class="info">
                 Время покупки:<br>
-                <input type="text" name="time_receipt" class="time_receipt">
+                <input type="text" tabindex="3" name="time_receipt" class="time_receipt">
             </label>
             <label class="info">
                 Итог по чеку:<br>
-                <input type="text" name="total_sum" class="total_sum">
+                <input type="text" tabindex="4" name="total_sum" class="total_sum">
             </label>
             <fieldset>
                 <legend class="title_information_product">Информация о продуктах:</legend>
                 <div class="field">
                     <label class="info">
                     Наименование:<br>
-                    <input type="text" name="name_product" class="name_product">
+                    <input type="text" tabindex="5" name="name_product" class="name_product">
                 </label>
                     <label class="info">
                         Цена:<br>
-                        <input type="text" name="price_product" class="date_receipt">
+                        <input type="text" tabindex="6" name="price_product" class="date_receipt">
                     </label>
                     <label class="info">
                         Количество\Вес:<br>
-                        <input type="text" name="quantity" class="quantity">
+                        <input type="text" tabindex="7" name="quantity" class="quantity">
                     </label>
                     <label class="info">
                         Сумма:<br>
-                        <input type="text" name="amount_product" class="amount_product">
+                        <input type="text" tabindex="8" name="amount_product" class="amount_product">
                     </label>
-                    <input class="remove_block" type="button" value="Удалить" onclick="removeField(this)"><br>
+                    <input class="remove_block" type="button" value="Удалить строку" onclick="removeField(this)"><br>
                 </div>
-                <input class="adding_block" type="button" value="Добавить" onclick="addField(this)">
+                <input class="adding_block" type="button" value="Добавить строки" onclick="addField(this)">
             </fieldset>
 
-            <button class="button_send" type="submit">Добавить данные</button>
+            <button class="button_send" onclick="window.close()" tabindex="9" type="submit">Добавить данные</button>
         </div>
     </form>
 </body>
