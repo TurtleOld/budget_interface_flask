@@ -184,7 +184,7 @@ def get_info():
 
 @app.route("/adding_receipt_manual")
 def adding_receipt_manual():
-    return render_template("adding_manual.html")
+    return render_template("adding_receipt.html")
 
 
 if __name__ == '__main__':
