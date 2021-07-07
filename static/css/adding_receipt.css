@@ -13,6 +13,10 @@ form {
     margin: 0 auto;
 }
 
+.form_adding_receipt {
+    margin-top: 4rem;
+}
+
 .title_information_product {
     color: white;
 }
@@ -24,5 +28,12 @@ form {
 }
 
 .adding_block {
-    margin-left: 3rem;
+    position: absolute;
+    margin-left: -10rem;
+    margin-top: -5rem;
 }
+
+label.info {
+    color: white;
+}
+
