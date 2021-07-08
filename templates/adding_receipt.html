@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url_for("static", filename='css/adding_receipt.css') }}">
 </head>
 <body>
-    <form action="/accounting" class="form_adding_receipt">
+    <form action="/adding_receipt_manual" method="post" class="form_adding_receipt">
         <div class="information_product">
             <label class="info">
                 Продавец:<br>
@@ -51,7 +51,8 @@
                 <input class="adding_block" type="button" value="Добавить строки" onclick="addField(this)">
             </fieldset>
 
-            <button class="button_send" onclick="window.close()" tabindex="9" type="submit">Добавить данные</button>
+            <button type="submit" class="button_send" tabindex="9" >Добавить данные</button>
+            <button type="button" class="closed_tab" onclick="window.close()">Закрыть вкладку</button>
         </div>
     </form>
 </body>
