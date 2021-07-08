@@ -176,7 +176,7 @@ def get_info():
                                error=error, get_amount=get_amount, name_seller=name_sellers)
 
 
-@app.route("/adding_receipt_manual")
+@app.route("/adding_receipt_manual", methods=["GET", "POST"])
 def adding_receipt_manual():
     return render_template("adding_receipt.html")
 
