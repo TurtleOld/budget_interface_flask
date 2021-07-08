@@ -168,12 +168,6 @@ def get_info():
             summation_amount = cursor.fetchall()
             get_amount = get_full_amount_product(summation_amount)
 
-        elif days == "" and months and years:
-            error = "Не заполнено поле День"
-        elif days and months == "" and years:
-            error = "Не заполнено поле Месяц"
-        elif days and months and years == "":
-            error = "Не заполнено поле Год"
         else:
             error = "Заполните необходимые поля!"
         cursor.execute("SELECT name_seller FROM receipt GROUP BY name_seller ORDER BY name_seller")
