@@ -89,18 +89,24 @@
                 {% block content %}
                     {% for item in data_sampling %}
                         <p>
-                            Продавец: {{ item[2] }} <br>
-                            Дата покупки: {{ item[0] }} <br>
-                            Время покупки: {{ item[1] }} <br><br>
+                            <span class="strong_header">
+                                Продавец: {{ item[2] }} <br>
+                                Дата покупки: {{ item[0] }} <br>
+                                Время покупки: {{ item[1] }} <br><br>
+                            </span>
 
-                            {% for item in item[3][0] %}
-                                Наименование: {{ item[0] }}<br>
-                                Цена: {{ item[1] }}<br>
-                                Количество\Вес: {{ item[2] }}<br>
-                                Сумма: {{ item[3] }}<br><br>
-                            {% endfor %}
 
-                            Итог по чеку: {{ item[4] }}
+                                {% for item in item[3][0] %}
+                                    <span class="wrapper_item">
+                                    Наименование: <strong>{{ item[0] }}</strong><br>
+                                    Цена: {{ item[1] }}<br>
+                                    Количество\Вес: {{ item[2] }}<br>
+                                    Сумма: <strong>{{ item[3] }}</strong><br><br>
+                                    </span>
+                                {% endfor %}
+
+
+                            <strong class="total_receipt">Итог по чеку: {{ item[4] }}</strong>
                         </p>
                     {% endfor %}
                 {% endblock %}

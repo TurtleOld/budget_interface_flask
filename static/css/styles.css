@@ -28,18 +28,37 @@ option {
     flex-direction:  row;
     flex-wrap: wrap;
     margin-left: 10px;
-
 }
 
 .cards p {
     overflow-y: scroll;
     margin-left: 2px;
     padding: 1rem;
-    border: 2px solid #63ff7d;
-    font-size: 12px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #000;
     width: 370px;
     height: 500px;
     border-radius: 10px;
+}
+
+.strong_header {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px solid #000000;
+}
+
+.wrapper_item {
+    display: block;
+    padding-top: 15px;
+    border-bottom: 2px solid #000000;
+}
+
+.total_receipt {
+    display: block;
+    font-size: 14px;
+    padding-top: 15px;
 }
 
 .container-fluid {
