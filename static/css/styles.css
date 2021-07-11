@@ -44,6 +44,7 @@ option {
 
 .strong_header {
     display: block;
+    font-family: 'Roboto Slab', serif;
     font-size: 14px;
     font-weight: bold;
     border-bottom: 2px solid #000000;
@@ -53,6 +54,7 @@ option {
     display: block;
     padding-top: 15px;
     border-bottom: 2px solid #000000;
+    font-family: 'Roboto Slab', serif;
 }
 
 .total_receipt {
