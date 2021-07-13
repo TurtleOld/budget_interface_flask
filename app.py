@@ -3,6 +3,7 @@ from settings_database import cursor
 from charts import charts_route
 import logging
 
+
 app = Flask(__name__)
 app.register_blueprint(charts_route)
 
