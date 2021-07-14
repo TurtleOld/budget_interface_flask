@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import datetime
 from settings_database import cursor
+from functions import get_total_amount
 
 charts_route = Blueprint("charts", __name__)
 
@@ -40,14 +41,21 @@ def get_name_month_from_date(date_time):
 @charts_route.route("/charts")
 def charts():
     cursor.execute("SELECT * FROM receipt ORDER BY date_receipt")
-    product_amount = cursor.fetchall()
+    product_information = cursor.fetchall()
+    # print(product_information)
     # print(get_name_month_from_date(str(product_amount[0][0])))
-    listing = []
-    for date in product_amount:
+    listing_month = []
+    month_listing = []
+    for date in product_information:
         result = (get_name_month_from_date(str(date[0])))
-        listing.append(result)
-    for item in set(listing):
-        print(item)
+        listing_month.append(result)
+    for item in set(listing_month):
+        month_listing.append(item)
+    month_listing.sort(reverse=True)
+
+    cursor.execute("SELECT total_sum FROM receipt WHERE (extract (month from date_receipt)=5) GROUP BY total_sum")
+    product_total_sum = cursor.fetchall()
+    print(get_total_amount(product_total_sum))
 
     return render_template("charts.html")
 
