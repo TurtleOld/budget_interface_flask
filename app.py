@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for
 from settings_database import cursor
 from charts import charts_route
 import logging
-
+from functions import get_full_amount_product
 
 app = Flask(__name__)
 app.register_blueprint(charts_route)
@@ -31,13 +31,6 @@ def get_info():
         number_week = request.form.get("weeks")
 
     if request.method == "POST":
-        def get_full_amount_product(fetchall_item):
-            list_amount = []
-            for item in fetchall_item:
-                conversion_to_float_amount = float(item[0])
-                list_amount.append(conversion_to_float_amount)
-            summation = sum(list_amount)
-            return f"Сумма по выборке: {round(summation, 2)} ₽"
 
         days = DateReceipt.days
         months = DateReceipt.months
@@ -148,7 +141,7 @@ def get_info():
         # Выборка по месяцу
         elif years == "" and name_seller == "" and number_week == "" and days == "" and months != "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (month from date_receipt)=%s) ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (months,))
             data_sampling = cursor.fetchall()
             cursor.execute(
