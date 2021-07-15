@@ -16,7 +16,7 @@ def get_total_amount(amount):
         conversion_to_float_amount = float(item[0])
         list_amount.append(conversion_to_float_amount)
     summation = sum(list_amount)
-    return summation
+    return round(summation, 2)
 
 
 def get_number_month(date_time):
