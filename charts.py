@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import datetime
 from settings_database import cursor
-from functions import get_total_amount
+from functions import get_total_amount, get_number_month
 
 charts_route = Blueprint("charts", __name__)
 
@@ -44,18 +44,26 @@ def charts():
     product_information = cursor.fetchall()
     # print(product_information)
     # print(get_name_month_from_date(str(product_amount[0][0])))
-    listing_month = []
+    listing_name_months = []
     month_listing = []
+    number_month = []
+    amount_total = []
     for date in product_information:
-        result = (get_name_month_from_date(str(date[0])))
-        listing_month.append(result)
-    for item in set(listing_month):
+
+        name_month = (get_name_month_from_date(str(date[0])))
+        listing_name_months.append(name_month)
+
+        number_month.append(get_number_month(str(date[0])))
+    for number in set(number_month):
+        cursor.execute(
+            "SELECT total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) GROUP BY total_sum", (number,))
+        product_total_sum = cursor.fetchall()
+        amount_total.append(get_total_amount(product_total_sum))
+    for item in set(listing_name_months):
         month_listing.append(item)
     month_listing.sort(reverse=True)
 
-    cursor.execute("SELECT total_sum FROM receipt WHERE (extract (month from date_receipt)=5) GROUP BY total_sum")
-    product_total_sum = cursor.fetchall()
-    print(get_total_amount(product_total_sum))
+    print(f"Месяц: {set(listing_name_months)} Сумма: {amount_total}")
 
     return render_template("charts.html")
 
@@ -63,3 +71,4 @@ def charts():
 # values = [5, 7, 3, 4, 6]
 # plt.bar(index, values)
 # plt.show()
+# result = cursor.execute("SELECT total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) GROUP BY total_sum", (number_month,))
