@@ -123,3 +123,11 @@ button[type="submit"] {
     cursor: pointer;
     color: white !important;
 }
+
+.plots {
+    display: flex;
+}
+
+.plot_monthly_expenses {
+    margin-top: 2rem;
+}
