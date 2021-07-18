@@ -42,17 +42,13 @@ def get_name_month_from_date(date_time):
 def charts():
     cursor.execute("SELECT * FROM receipt ORDER BY date_receipt")
     product_information = cursor.fetchall()
-    # print(product_information)
-    # print(get_name_month_from_date(str(product_amount[0][0])))
     listing_name_months = []
     month_listing = []
     number_month = []
     amount_total = []
     for date in product_information:
-
         name_month = (get_name_month_from_date(str(date[0])))
         listing_name_months.append(name_month)
-
         number_month.append(get_number_month(str(date[0])))
     for number in set(number_month):
         cursor.execute(
@@ -62,9 +58,12 @@ def charts():
     for item in set(listing_name_months):
         month_listing.append(item)
     month_listing.sort(reverse=True)
-
-    print(f"Месяц: {set(listing_name_months)} Сумма: {amount_total}")
-
+    dict_name_months = list(set(listing_name_months))
+    dict_name_months.sort(reverse=True)
+    index = dict_name_months
+    values = amount_total
+    plt.bar(index, values)
+    plt.show()
     return render_template("charts.html")
 
 # index = [0, 1, 2, 3, 4]
