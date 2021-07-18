@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import datetime
 from settings_database import cursor
 from functions import get_total_amount, get_number_month
@@ -40,6 +41,7 @@ def get_name_month_from_date(date_time):
 
 @charts_route.route("/charts")
 def charts():
+    title = "Графики"
     cursor.execute("SELECT * FROM receipt ORDER BY date_receipt")
     product_information = cursor.fetchall()
     listing_name_months = []
@@ -63,11 +65,7 @@ def charts():
     index = dict_name_months
     values = amount_total
     plt.bar(index, values)
-    plt.show()
-    return render_template("charts.html")
 
-# index = [0, 1, 2, 3, 4]
-# values = [5, 7, 3, 4, 6]
-# plt.bar(index, values)
-# plt.show()
-# result = cursor.execute("SELECT total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) GROUP BY total_sum", (number_month,))
+    plt.title("Расходы по месяцам")
+    plt.savefig("static/img/plot_monthly_expenses.png")
+    return render_template("charts.html", plot_monthly_expenses="static/img/plot_monthly_expenses.png", title=title)
