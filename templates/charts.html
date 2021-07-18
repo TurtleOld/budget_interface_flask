@@ -1,11 +1,25 @@
+{% extends "base.html" %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Графики</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title></title>
 </head>
 <body>
-    {{ test }}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="plots">
+                <img src="{{ plot_monthly_expenses }}" class="plot_monthly_expenses" alt="Chart">
+            </div>
+
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+{% endblock %}
 </body>
 </html>
