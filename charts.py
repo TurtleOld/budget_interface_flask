@@ -33,7 +33,7 @@ def get_name_month_from_date(date_time):
         return "Октябрь"
     elif number_month == 11:
         return "Ноябрь"
-    elif number_month == 11:
+    else:
         return "Декабрь"
 
 
