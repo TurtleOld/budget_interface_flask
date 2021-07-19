@@ -13,27 +13,27 @@ def get_name_month_from_date(date_time):
     number_month = datetime.datetime.strptime(date_without_dash, "%Y%m%d").date().month
     if number_month == 1:
         return "Январь"
-    elif number_month == 2:
+    if number_month == 2:
         return "Февраль"
-    elif number_month == 3:
+    if number_month == 3:
         return "Март"
-    elif number_month == 4:
+    if number_month == 4:
         return "Апрель"
-    elif number_month == 5:
+    if number_month == 5:
         return "Май"
-    elif number_month == 6:
+    if number_month == 6:
         return "Июнь"
-    elif number_month == 7:
+    if number_month == 7:
         return "Июль"
-    elif number_month == 8:
+    if number_month == 8:
         return "Август"
-    elif number_month == 9:
+    if number_month == 9:
         return "Сентябрь"
-    elif number_month == 10:
+    if number_month == 10:
         return "Октябрь"
-    elif number_month == 11:
+    if number_month == 11:
         return "Ноябрь"
-    else:
+    if number_month == 12:
         return "Декабрь"
 
 
