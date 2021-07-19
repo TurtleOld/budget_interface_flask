@@ -22,4 +22,3 @@ def get_total_amount(amount):
 def get_number_month(date_time):
     date_without_dash = date_time.replace("-", "")
     return datetime.datetime.strptime(date_without_dash, "%Y%m%d").date().month
-
