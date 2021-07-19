@@ -45,7 +45,7 @@ def get_info():
         # Выборка по продавцу и дню
         if name_seller != "" and days != "" and number_week == "" and months == "" and years == "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (day from date_receipt)=%s) and name_seller=%s GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (days, name_seller,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -57,7 +57,7 @@ def get_info():
         # Выборка по продавцу за весь период
         if name_seller != "" and days == "" and number_week == "" and months == "" and years == "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE name_seller=%s ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE name_seller=%s GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (name_seller,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -69,7 +69,7 @@ def get_info():
         # Выборка по продавцу и году
         elif name_seller != "" and days == "" and number_week == "" and months == "" and years != "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (year from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (year from date_receipt)=%s) and name_seller=%s GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (years, name_seller,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -81,7 +81,7 @@ def get_info():
         # Выборка по продавцу и месяцу
         elif name_seller != "" and days == "" and number_week == "" and months != "" and years == "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (month from date_receipt)=%s) and name_seller=%s GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (months, name_seller,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -93,7 +93,7 @@ def get_info():
         # Выборка по продавцу и неделе
         elif name_seller != "" and number_week != "" and days == "" and months == "" and years == "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (week from date_receipt)=%s) and name_seller=%s ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (week from date_receipt)=%s) and name_seller=%s GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (number_week, name_seller,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -105,7 +105,7 @@ def get_info():
         # Выборка по неделе
         elif name_seller == "" and number_week != "" and days == "" and months == "" and years == "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (week from date_receipt)=%s) ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (week from date_receipt)=%s) GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (number_week,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -117,7 +117,7 @@ def get_info():
         # Выборка по дате
         elif days and months and years:
             cursor.execute(
-                "SELECT * FROM receipt WHERE date_receipt=%s ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE date_receipt=%s GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (get_date,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -129,7 +129,7 @@ def get_info():
         # Выборка по дню текущего месяца
         elif name_seller == "" and days != "" and number_week == "" and months == "" and years == "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (day from date_receipt)=%s) ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (day from date_receipt)=%s) GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (days,))
             data_sampling = cursor.fetchall()
             cursor.execute(
@@ -153,7 +153,7 @@ def get_info():
         # Выборка по году
         elif years != "" and name_seller == "" and number_week == "" and days == "" and months == "":
             cursor.execute(
-                "SELECT * FROM receipt WHERE (extract (year from date_receipt)=%s) ORDER BY date_receipt",
+                "SELECT date_receipt, time_receipt, name_seller, product_information, total_sum FROM receipt WHERE (extract (year from date_receipt)=%s) GROUP BY date_receipt, time_receipt, name_seller, product_information, total_sum ORDER BY date_receipt",
                 (years,))
             data_sampling = cursor.fetchall()
             cursor.execute(
