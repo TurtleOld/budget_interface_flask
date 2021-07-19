@@ -116,12 +116,16 @@ select.years {
 }
 
 button[type="submit"] {
-    margin: 2.5rem 1rem 1rem 0;
+    margin: 2.5rem 1rem 2rem 0;
 }
 
-.link_open {
+.added_receipt_link, .charts_link {
     cursor: pointer;
     color: white !important;
+}
+
+.added_receipt_link:hover, .charts_link:hover {
+    text-decoration: none;
 }
 
 .plots {
