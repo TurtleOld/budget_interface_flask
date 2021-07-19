@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 import datetime
 from settings_database import cursor
 from functions import get_total_amount, get_number_month
