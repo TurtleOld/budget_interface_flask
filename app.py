@@ -1,11 +1,19 @@
 from flask import Flask, render_template, request, url_for
 from settings_database import cursor
 from charts import charts_route
+import os
 import logging
+from flask_wtf.csrf import CSRFProtect
 from functions import get_full_amount_product
 
 app = Flask(__name__)
 app.register_blueprint(charts_route)
+
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+
+csrf = CSRFProtect(app)
+
 
 logging.basicConfig(filename="app.log", filemode="w", level=logging.DEBUG)
 
