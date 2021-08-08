@@ -10,6 +10,7 @@
 </head>
 <body>
     <form action="/adding_receipt_manual" method="post" class="form_adding_receipt">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div class="information_product">
             <label class="info">
                 Продавец:<br>
