@@ -1,26 +1,36 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, redirect
 from settings_database import cursor
 from charts import charts_route
 import os
 import logging
+from dotenv import load_dotenv
 from flask_wtf.csrf import CSRFProtect
+from settings_database import user, password, host
 from functions import get_full_amount_product
+from flask_login import login_required, current_user, login_user, logout_user
+from models import UserModel, db, login
 
 app = Flask(__name__)
-app.register_blueprint(charts_route)
-
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
+app.secret_key = SECRET_KEY
+
+app.register_blueprint(charts_route)
+
+load_dotenv()
 
 csrf = CSRFProtect(app)
 
-
 logging.basicConfig(filename="app.log", filemode="w", level=logging.DEBUG)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{user}:{password}@{host}:5432/budgetUsers"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-@app.route("/")
-def default_page():
-    return render_template("default.html")
+
+
+# @app.route("/")
+# def default_page():
+#     return render_template("default.html")
 
 
 @app.route("/accounting")
