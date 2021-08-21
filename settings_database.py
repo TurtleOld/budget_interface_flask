@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 dbname = os.getenv("dbname")
-user = os.getenv("username").lower()
-password = os.getenv("password")
+username_bd = os.getenv("username").lower()
+password_bd = os.getenv("password")
 host = os.getenv("host")
 port = os.getenv("port")
 
@@ -15,8 +15,8 @@ port = os.getenv("port")
 try:
     with psycopg2.connect(
         dbname=dbname,
-        user=user,
-        password=password,
+        user=username_bd,
+        password=password_bd,
         host=host,
         port=port
     ) as connection:

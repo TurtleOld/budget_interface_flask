@@ -5,7 +5,7 @@ import os
 import logging
 from dotenv import load_dotenv
 from flask_wtf.csrf import CSRFProtect
-from settings_database import user, password, host
+from settings_database import username_bd, password_bd, host
 from functions import get_full_amount_product
 from flask_login import login_required, current_user, login_user, logout_user
 from models import UserModel, db, login
@@ -23,9 +23,53 @@ csrf = CSRFProtect(app)
 
 logging.basicConfig(filename="app.log", filemode="w", level=logging.DEBUG)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{user}:{password}@{host}:5432/budgetUsers"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{username_bd}:{password_bd}@{host}:5432/budgetUsers"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+db.init_app(app)
+login.init_app(app)
+login.login_view = 'login'
+
+
+@app.before_first_request
+def create_all():
+    db.create_all()
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if current_user.is_authenticated:
+        return redirect('/accounting')
+
+    if request.method == 'POST':
+        email = request.form['email']
+        user = UserModel.query.filter_by(email=email).first()
+        if user is not None and user.check_password(request.form['password']):
+            login_user(user)
+            return redirect('/accounting')
+
+    return render_template('login.html')
+
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    if current_user.is_authenticated:
+        return redirect('/blogs')
+
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+
+        if UserModel.query.filter_by(email=email).first():
+            return 'Email already Present'
+
+        user = UserModel(email=email, username=username)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect('/login')
+    return render_template('register.html')
 
 
 # @app.route("/")
@@ -34,6 +78,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 @app.route("/accounting")
+@login_required
 def get_name_seller():
     cursor.execute("SELECT name_seller FROM receipt GROUP BY name_seller ORDER BY name_seller")
     name_sellers = cursor.fetchall()
@@ -41,6 +86,7 @@ def get_name_seller():
 
 
 @app.route("/accounting", methods=["GET", "POST"])
+@login_required
 def get_info():
     class DateReceipt:
         days = request.form.get("days")
@@ -189,8 +235,15 @@ def get_info():
 
 
 @app.route("/adding_receipt_manual", methods=["GET", "POST"])
+@login_required
 def adding_receipt_manual():
     return render_template("adding_receipt.html")
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/accounting')
 
 
 if __name__ == '__main__':
