@@ -6,10 +6,11 @@
 </head>
 <body>
     <form action="" method = "POST">
-    <p>email <input type = "email" name = "email" /></p>
-    <p>Username <input type = "text" name = "username" /></p>
-    <p>password <input type = "password" name = "password" /></p>
-    <p> submit <input type = "submit" value = "Submit" /></p>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <p>email <input type = "email" name = "email" /></p>
+        <p>Username <input type = "text" name = "username" /></p>
+        <p>password <input type = "password" name = "password" /></p>
+        <p> submit <input type = "submit" value = "Submit" /></p>
     </form>
 
     <h3>Already Have an Account?</h3><br>
