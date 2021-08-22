@@ -8,7 +8,7 @@ login = LoginManager()
 
 
 class UserModel(UserMixin, db.Model):
-    __tablename__ = 'budgetUsers'
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(80), unique=True)
