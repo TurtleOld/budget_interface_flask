@@ -23,7 +23,7 @@ csrf = CSRFProtect(app)
 
 logging.basicConfig(filename="app.log", filemode="w", level=logging.DEBUG)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{username_bd}:{password_bd}@{host}:5432/budgetUsers"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{username_bd}:{password_bd}@{host}:5432/budget"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -51,30 +51,9 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/register', methods=['POST', 'GET'])
-def register():
-    if current_user.is_authenticated:
-        return redirect('/blogs')
-
-    if request.method == 'POST':
-        email = request.form['email']
-        username = request.form['username']
-        password = request.form['password']
-
-        if UserModel.query.filter_by(email=email).first():
-            return 'Email already Present'
-
-        user = UserModel(email=email, username=username)
-        user.set_password(password)
-        db.session.add(user)
-        db.session.commit()
-        return redirect('/login')
-    return render_template('register.html')
-
-
-# @app.route("/")
-# def default_page():
-#     return render_template("default.html")
+@app.route("/")
+def default_page():
+    return render_template("default.html")
 
 
 @app.route("/accounting")
