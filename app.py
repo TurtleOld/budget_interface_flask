@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from settings_database import cursor
 from charts import charts_route
 import os
@@ -18,8 +18,8 @@ app.secret_key = SECRET_KEY
 app.register_blueprint(charts_route)
 
 load_dotenv()
-
 csrf = CSRFProtect(app)
+csrf.init_app(app)
 
 logging.basicConfig(filename="app.log", filemode="w", level=logging.DEBUG)
 
