@@ -7,13 +7,19 @@ from dotenv import load_dotenv
 from flask_wtf.csrf import CSRFProtect
 from settings_database import username_bd, password_bd, host
 from functions import get_full_amount_product
-from flask_login import login_required, current_user, login_user, logout_user
+from flask_login import login_required, current_user, login_user, logout_user, login_manager
 from models import UserModel, db, login
+from wtform import LoginForm
+
 
 app = Flask(__name__)
 SECRET_KEY = os.urandom(32)
-app.config['SECRET_KEY'] = SECRET_KEY
-app.secret_key = SECRET_KEY
+#app.config['SECRET_KEY'] = SECRET_KEY
+app.secret_key = "ff82b98ef8727e388ea8bff0636b8f46926f873d7419e214185a4724888173c2d85e5c4a05ae98fefaa17b105457ae015f3b113cd48b45711b60317cd7760789"
+#login_manager.session_protection = 'strong'
+
+#SERVER_NAME = '127.0.0.1:5000'
+
 
 app.register_blueprint(charts_route)
 
@@ -40,15 +46,18 @@ def create_all():
 def login():
     if current_user.is_authenticated:
         return redirect('/accounting')
-
-    if request.method == 'POST':
+    form = LoginForm()
+    print(request.method)
+    if request.method == "POST":
         email = request.form['email']
+        print(email)
         user = UserModel.query.filter_by(email=email).first()
+        print(user)
         if user is not None and user.check_password(request.form['password']):
             login_user(user)
             return redirect('/accounting')
 
-    return render_template('login.html')
+    return render_template('login.html', form=form)
 
 
 @app.route("/")
@@ -222,8 +231,9 @@ def adding_receipt_manual():
 @app.route('/logout')
 def logout():
     logout_user()
+    session.pop('username', None)
     return redirect('/accounting')
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", debug=True)
