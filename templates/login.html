@@ -6,10 +6,10 @@
 </head>
 <body>
     <form action="/accounting" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <p>email <input type="email" name="email" /></p>
-        <p>password <input type="password" name="password" /></p>
-        <p> submit <input type="submit" value="Submit" /></p>
+        {{ form.csrf_token }}
+        {{ form.email.label() }} {{ form.email() }}
+        {{ form.password.label() }} {{ form.password() }}
+        {{ form.submit() }}
     </form>
 </body>
 </html>
