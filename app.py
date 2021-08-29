@@ -15,7 +15,7 @@ from flask_login import LoginManager
 
 app = Flask(__name__)
 SECRET_KEY = os.getenv("SECRET_KEY")
-
+app.secret_key = SECRET_KEY
 
 app.register_blueprint(charts_route)
 
@@ -45,13 +45,10 @@ def load_user(id):
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     form = LoginForm()
-    print(form)
     if current_user.is_authenticated:
         return redirect('/accounting')
-    print(request.method)
     if request.method == 'POST':
         email = request.form['email']
-        print(email)
         user = UserModel.query.filter_by(email=email).first()
         if user is not None and user.check_password(request.form['password']):
             login_user(user)
