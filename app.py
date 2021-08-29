@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request, redirect, session
 from settings_database import cursor
 from charts import charts_route
@@ -12,7 +14,7 @@ from flask_login import LoginManager
 
 
 app = Flask(__name__)
-app.secret_key = "ff82b98ef8727e388ea8bff0636b8f46926f873d7419e214185a4724888173c2d85e5c4a05ae98fefaa17b105457ae015f3b113cd48b45711b60317cd7760789"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 app.register_blueprint(charts_route)
