@@ -1,31 +1,23 @@
 from flask import Flask, render_template, request, redirect, session
 from settings_database import cursor
 from charts import charts_route
-import os
 import logging
 from dotenv import load_dotenv
-from flask_wtf.csrf import CSRFProtect
 from settings_database import username_bd, password_bd, host
 from functions import get_full_amount_product
-from flask_login import login_required, current_user, login_user, logout_user, login_manager
-from models import UserModel, db, login
+from flask_login import login_required, current_user, login_user, logout_user
+from models import UserModel, db
 from wtform import LoginForm
+from flask_login import LoginManager
 
 
 app = Flask(__name__)
-SECRET_KEY = os.urandom(32)
-#app.config['SECRET_KEY'] = SECRET_KEY
 app.secret_key = "ff82b98ef8727e388ea8bff0636b8f46926f873d7419e214185a4724888173c2d85e5c4a05ae98fefaa17b105457ae015f3b113cd48b45711b60317cd7760789"
-#login_manager.session_protection = 'strong'
-
-#SERVER_NAME = '127.0.0.1:5000'
 
 
 app.register_blueprint(charts_route)
 
 load_dotenv()
-csrf = CSRFProtect(app)
-csrf.init_app(app)
 
 logging.basicConfig(filename="app.log", filemode="w", level=logging.DEBUG)
 
@@ -33,6 +25,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{username_bd}:{password_b
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+login = LoginManager()
 login.init_app(app)
 login.login_view = 'login'
 
@@ -42,17 +35,22 @@ def create_all():
     db.create_all()
 
 
+@login.user_loader
+def load_user(id):
+    return UserModel.query.get(int(id))
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    form = LoginForm()
+    print(form)
     if current_user.is_authenticated:
         return redirect('/accounting')
-    form = LoginForm()
     print(request.method)
-    if request.method == "POST":
+    if request.method == 'POST':
         email = request.form['email']
         print(email)
         user = UserModel.query.filter_by(email=email).first()
-        print(user)
         if user is not None and user.check_password(request.form['password']):
             login_user(user)
             return redirect('/accounting')

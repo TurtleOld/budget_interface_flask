@@ -5,8 +5,7 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="/accounting" method="POST">
-        {{ form.csrf_token }}
+    <form method="POST">
         {{ form.email.label() }} {{ form.email() }}
         {{ form.password.label() }} {{ form.password() }}
         {{ form.submit() }}
