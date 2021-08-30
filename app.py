@@ -5,6 +5,7 @@ from settings_database import cursor
 from charts import charts_route
 import logging
 from dotenv import load_dotenv
+from flask_wtf.csrf import CSRFProtect
 from settings_database import username_bd, password_bd, host
 from functions import get_full_amount_product
 from flask_login import login_required, current_user, login_user, logout_user
@@ -16,6 +17,7 @@ from flask_login import LoginManager
 app = Flask(__name__)
 SECRET_KEY = os.getenv("SECRET_KEY")
 app.secret_key = SECRET_KEY
+csrf = CSRFProtect(app)
 
 app.register_blueprint(charts_route)
 
